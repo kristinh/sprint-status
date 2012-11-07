@@ -1,4 +1,6 @@
 SprintStats::Application.routes.draw do
+  resources :sprint_results
+
   resources :sprints
 
   resources :teams

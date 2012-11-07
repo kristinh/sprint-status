@@ -1,0 +1,33 @@
+<h1>Listing sprint_results</h1>
+
+<table>
+  <tr>
+    <th>Team</th>
+    <th>Sprint</th>
+    <th>Points planned</th>
+    <th>Points actual</th>
+    <th>Person days planned</th>
+    <th>Person days actual</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @sprint_results.each do |sprint_result| %>
+  <tr>
+    <td><%= sprint_result.team_id %></td>
+    <td><%= sprint_result.sprint_id %></td>
+    <td><%= sprint_result.points_planned %></td>
+    <td><%= sprint_result.points_actual %></td>
+    <td><%= sprint_result.person_days_planned %></td>
+    <td><%= sprint_result.person_days_actual %></td>
+    <td><%= link_to 'Show', sprint_result %></td>
+    <td><%= link_to 'Edit', edit_sprint_result_path(sprint_result) %></td>
+    <td><%= link_to 'Destroy', sprint_result, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Sprint result', new_sprint_result_path %>

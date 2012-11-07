@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Team:</b>
+  <%= @sprint_result.team_id %>
+</p>
+
+<p>
+  <b>Sprint:</b>
+  <%= @sprint_result.sprint_id %>
+</p>
+
+<p>
+  <b>Points planned:</b>
+  <%= @sprint_result.points_planned %>
+</p>
+
+<p>
+  <b>Points actual:</b>
+  <%= @sprint_result.points_actual %>
+</p>
+
+<p>
+  <b>Person days planned:</b>
+  <%= @sprint_result.person_days_planned %>
+</p>
+
+<p>
+  <b>Person days actual:</b>
+  <%= @sprint_result.person_days_actual %>
+</p>
+
+
+<%= link_to 'Edit', edit_sprint_result_path(@sprint_result) %> |
+<%= link_to 'Back', sprint_results_path %>
