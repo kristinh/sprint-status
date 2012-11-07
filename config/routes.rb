@@ -1,4 +1,6 @@
 SprintStats::Application.routes.draw do
+  resources :sprints
+
   resources :teams
 
   # The priority is based upon order of creation:

@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @sprint.name %>
+</p>
+
+<p>
+  <b>Start:</b>
+  <%= @sprint.start %>
+</p>
+
+<p>
+  <b>End:</b>
+  <%= @sprint.end %>
+</p>
+
+<p>
+  <b>Work days:</b>
+  <%= @sprint.work_days %>
+</p>
+
+
+<%= link_to 'Edit', edit_sprint_path(@sprint) %> |
+<%= link_to 'Back', sprints_path %>
