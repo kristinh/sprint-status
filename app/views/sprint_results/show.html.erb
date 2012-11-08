@@ -30,6 +30,26 @@
   <%= @sprint_result.person_days_actual %>
 </p>
 
+<p>
+  <b>Points/Person day planned:</b>
+  <%= number_with_precision(@sprint_result.points_per_person_day_planned, :precision => 2) %>
+</p>
+
+<p>
+  <b>Points/Person day actual:</b>
+  <%= number_with_precision(@sprint_result.points_per_person_day_actual, :precision => 2) %>
+</p>
+
+<p>
+  <b>Points completed:</b>
+  <%= number_with_precision(@sprint_result.percent_points_completed, :precision => 0) %> %
+</p>
+
+<p>
+  <b>Person days achieved:</b>
+  <%= number_with_precision(@sprint_result.percent_person_days_achieved, :precision => 0) %> %
+</p>
+
 
 <%= link_to 'Edit', edit_sprint_result_path(@sprint_result) %> |
 <%= link_to 'Back', sprint_results_path %>
