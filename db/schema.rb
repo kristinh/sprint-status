@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121108132441) do
+ActiveRecord::Schema.define(:version => 20121109171930) do
 
   create_table "sprint_results", :force => true do |t|
     t.integer  "team_id"
@@ -35,6 +35,20 @@ ActiveRecord::Schema.define(:version => 20121108132441) do
     t.integer  "work_days"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "team_stats", :force => true do |t|
+    t.integer  "team_id"
+    t.decimal  "points_planned_mean"
+    t.decimal  "points_actual_mean"
+    t.decimal  "person_days_planned_mean"
+    t.decimal  "person_days_actual_mean"
+    t.decimal  "points_per_person_day_planned_mean"
+    t.decimal  "points_per_person_day_actual_mean"
+    t.decimal  "percent_points_completed_mean"
+    t.decimal  "percent_person_days_achieved_mean"
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
   end
 
   create_table "teams", :force => true do |t|
