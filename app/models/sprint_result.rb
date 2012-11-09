@@ -1,4 +1,6 @@
 class SprintResult < ActiveRecord::Base
+  include Statistics
+
   attr_accessible :person_days_actual, :person_days_planned, :points_actual, :points_planned, :sprint_id, :team_id
 
   validates :person_days_planned, :presence => true
@@ -36,3 +38,39 @@ def person_days_and_points_actual_present?
     (person_days_actual.nil? && !points_actual.nil?)
 end
 
+# this will no longer scale when a team has > ~1000 sprint results
+def update_team_stats
+
+  #  https://gist.github.com/e51535002e609895586d
+ 
+  team = Team.find(team_id)
+  sprint_results = team.sprint_results.all
+
+  metrics = {
+    :points_planned                 => [],
+    :points_actual                  => [],
+    :person_days_planned            => [],
+    :person_days_actual             => [],
+    :points_per_person_day_planned  => [],
+    :points_per_person_day_actual   => [],
+    :percent_points_completed       => [],
+    :percent_person_days_achieved   => []
+  }
+
+  # iterate over all attributes and build arrays containing all result values
+  # calculate mean and standard deviation for each set of result values
+  # assemble into an array
+  statistics = metrics.inject({}) do |memo, (attribute_name, results)|
+    sprint_results.each do |result|
+     results << result.send(attribute_name)
+    end
+    mean, std_dev = mean_and_standard_deviation(results)
+    memo[attribute_name] = {}
+    memo[attribute_name][:mean] = mean
+    memo[attribute_name][:std_dev] = std_dev
+    memo
+  end
+
+  # now save to teams stats
+
+end
