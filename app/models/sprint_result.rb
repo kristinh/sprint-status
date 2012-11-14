@@ -27,6 +27,8 @@ class SprintResult < ActiveRecord::Base
           (points_actual.to_f / points_planned.to_f) * 100
       self.percent_person_days_achieved = 
           (person_days_actual.to_f / person_days_planned.to_f) * 100
+
+      update_team_stats  
     end
 
   end
@@ -45,6 +47,7 @@ def update_team_stats
  
   team = Team.find(team_id)
   sprint_results = team.sprint_results.all
+
 
   metrics = {
     :points_planned                 => [],
@@ -71,6 +74,12 @@ def update_team_stats
     memo
   end
 
+  team_stats = team.team_stats
   # now save to teams stats
+  statistics.each do |attribute_name, stats|
+    team_stats.send("#{attribute_name}_mean=", stats[:mean])
+  end
+
+  team_stats.save
 
 end
