@@ -83,3 +83,9 @@ def update_team_stats
   team_stats.save
 
 end
+
+def get_most_recent_sprint_results(num_of__sprints, team)
+  # query for getting last sprint results 
+  # team.sprint_results.joins(:sprint).order("sprints.end DESC").limit(5)
+
+end
