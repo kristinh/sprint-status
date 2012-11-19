@@ -81,6 +81,7 @@ class SprintResult < ActiveRecord::Base
     # now save to teams stats
     statistics.each do |attribute_name, stats|
       team_stats.send("#{attribute_name}_mean=", stats[:mean])
+      team_stats.send("#{attribute_name}_std_dev=", stats[:mean])
     end
 
     team_stats.save
