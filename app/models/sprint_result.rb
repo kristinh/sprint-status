@@ -43,6 +43,19 @@ class SprintResult < ActiveRecord::Base
       (person_days_actual.nil? && !points_actual.nil?)
   end
 
+  def self.metrics
+    metrics = {
+      :points_planned                 => [],
+      :points_actual                  => [],
+      :person_days_planned            => [],
+      :person_days_actual             => [],
+      :points_per_person_day_planned  => [],
+      :points_per_person_day_actual   => [],
+      :percent_points_completed       => [],
+      :percent_person_days_achieved   => []
+    }
+  end
+
   # this will no longer scale when a team has > ~1000 sprint results
   def update_team_stats
 
@@ -81,16 +94,58 @@ class SprintResult < ActiveRecord::Base
     # now save to teams stats
     statistics.each do |attribute_name, stats|
       team_stats.send("#{attribute_name}_mean=", stats[:mean])
-      team_stats.send("#{attribute_name}_std_dev=", stats[:mean])
+      team_stats.send("#{attribute_name}_std_dev=", stats[:std_dev])
     end
 
     team_stats.save
 
   end
 
-  def get_most_recent_sprint_results(num_of__sprints, team)
-    # query for getting last sprint results 
-    # team.sprint_results.joins(:sprint).where(["sprints.end < ?", today]).order("sprints.end DESC").limit(5)
+  def update_stats(team)
+
+    metrics = {
+      :points_planned                 => [],
+      :points_actual                  => [],
+      :person_days_planned            => [],
+      :person_days_actual             => [],
+      :points_per_person_day_planned  => [],
+      :points_per_person_day_actual   => [],
+      :percent_points_completed       => [],
+      :percent_person_days_achieved   => []
+    }
+
+    TeamStats.dimensions.each do |dimension|
+      results = get_most_recent_sprint_results(team, dimension)
+      statistics = calculate_mean_and_std_dev(SprintResult.metrics, results)
+      save_team_stats(team, statistics, dimension) 
+    end
 
   end
+
+  def get_most_recent_sprint_results(team, dimension)
+    # query for getting last sprint results 
+    # team.sprint_results.joins(:sprint).where(["sprints.end < ? AND points_planned != ?", today, nil]).order("sprints.end DESC").limit(5)
+    # sprint_results = team.sprint_results.all
+    today = Date.today
+
+    case dimension
+    when :last_5
+      results = team.sprint_results.joins(:sprint).where(["sprints.end < ? AND points_planned != ?", today, nil]).order("sprints.end DESC").limit(5)
+    when :last_3
+      results = team.sprint_results.joins(:sprint).where(["sprints.end < ? AND points_planned != ?", today, nil]).order("sprints.end DESC").limit(3)
+    else
+      results = team.sprint_results.all
+      # add where clause
+    end
+   
+    # returns list of sprint results
+  end
+
+  def calculate_mean_and_std_dev(metrics, sprint_results)
+    #return two dimensional statistics array, metric and mean/stddev
+  end 
+
+  def save_team_stats(team, statistics, num_of_sprints)
+  end
+
 end
