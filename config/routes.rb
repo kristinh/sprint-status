@@ -3,6 +3,8 @@ SprintStats::Application.routes.draw do
 
   get "static_pages/help"
 
+  get "static_pages/about"
+
   resources :sprint_results
 
   resources :sprints
