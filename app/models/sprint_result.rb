@@ -44,50 +44,6 @@ class SprintResult < ActiveRecord::Base
   end
 
   # this will no longer scale when a team has > ~1000 sprint results
-  def update_team_stats
-
-    #  https://gist.github.com/e51535002e609895586d
-   
-    team = Team.find(team_id)
-    sprint_results = team.sprint_results.all
-
-
-    metrics = {
-      :points_planned                 => [],
-      :points_actual                  => [],
-      :person_days_planned            => [],
-      :person_days_actual             => [],
-      :points_per_person_day_planned  => [],
-      :points_per_person_day_actual   => [],
-      :percent_points_completed       => [],
-      :percent_person_days_achieved   => []
-    }
-
-    # iterate over all attributes and build arrays containing all result values
-    # calculate mean and standard deviation for each set of result values
-    # assemble into an array
-    statistics = metrics.inject({}) do |memo, (attribute_name, results)|
-      sprint_results.each do |result|
-       results << result.send(attribute_name)
-      end
-      mean, std_dev = mean_and_standard_deviation(results)
-      memo[attribute_name] = {}
-      memo[attribute_name][:mean] = mean
-      memo[attribute_name][:std_dev] = std_dev
-      memo
-    end
-
-    team_stats = team.team_stats
-    # now save to teams stats
-    statistics.each do |attribute_name, stats|
-      team_stats.send("#{attribute_name}_mean=", stats[:mean])
-      team_stats.send("#{attribute_name}_std_dev=", stats[:std_dev])
-    end
-
-    team_stats.save
-
-  end
-
   def update_stats(team)
 
     metrics = {
