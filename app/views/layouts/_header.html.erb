@@ -2,13 +2,13 @@
   <div class="navbar-inner">
     <div class="container">
       <!--%= link_to "sprint stats", '#', id: "logo" %-->
-      <%= link_to image_tag("logo_250.png", alt: "Searchmetrics Sprint Stats"), '#', id:"logo" %>
+      <%= link_to image_tag("logo_250.png", alt: "Searchmetrics Sprint Stats"), root_path, id:"logo" %>
       <nav>
         <ul class="nav pull-right">
-          <li><%= link_to "Sprint Stats",    '#' %></li>
-          <li><%= link_to "Help",    '#' %></li>
-          <li><%= link_to "Teams", '#' %></li>
-          <li><%= link_to "Sprints", '#' %></li>
+          <li><%= link_to "Sprint Stats", root_path %></li>
+          <li><%= link_to "Teams",        teams_path %></li>
+          <li><%= link_to "Sprints",      sprints_path %></li>
+          <li><%= link_to "Help",         help_path%></li>
         </ul>
       </nav>
     </div>
