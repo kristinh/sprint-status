@@ -12,8 +12,11 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :team_id %><br />
-    <%= f.number_field :team_id %>
+    <%= f.select(:team_id, options_for_select(@teams.map { |t| [t.name, t.id] })) %>
+    <!--
+      <%= f.label :team_id %><br />
+      <%= f.number_field :team_id %>
+    -->
   </div>
   <div class="field">
     <%= f.label :sprint_id %><br />

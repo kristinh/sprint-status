@@ -26,6 +26,8 @@ class SprintResultsController < ApplicationController
   def new
     @sprint_result = SprintResult.new
 
+    @teams = Team.all
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @sprint_result }
@@ -35,6 +37,8 @@ class SprintResultsController < ApplicationController
   # GET /sprint_results/1/edit
   def edit
     @sprint_result = SprintResult.find(params[:id])
+
+    @teams = Team.all
   end
 
   # POST /sprint_results
