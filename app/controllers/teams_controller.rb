@@ -15,6 +15,23 @@ class TeamsController < ApplicationController
   def show
     @team = Team.find(params[:id])
 
+    today = Date.today
+    # we want to show results of last 5 sprints
+    @results = @team
+                .sprint_results
+                .joins(:sprint)
+                .where(["sprints.end < ? AND points_actual IS NOT ?", today, nil])
+                .order("sprints.end DESC")
+                .limit(5)
+    @current_sprint_result = @team
+                            .sprint_results
+                            .joins(:sprint)
+                            .where(["sprints.start <= ? AND sprints.end >= ?", today, today])
+    if !@current_sprint_result.empty? 
+      @current_sprint = Sprint.find(@current_sprint_result.sprint_id)
+    end
+
+    #team = Team.find(params[:id])
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @team }

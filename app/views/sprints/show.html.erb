@@ -1,18 +1,16 @@
+<% provide(:title, 'Sprint ' + @sprint.name ) %>
+<h1><%= 'Sprint ' + @sprint.name %> </h1>
+
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Name:</b>
-  <%= @sprint.name %>
+  <b>Starts: </b>
+  <%= @sprint.start.to_formatted_s(:long_ordinal) %> 
 </p>
 
 <p>
-  <b>Start:</b>
-  <%= @sprint.start %>
-</p>
-
-<p>
-  <b>End:</b>
-  <%= @sprint.end %>
+  <b>Ends:</b>
+  <%= @sprint.end.to_formatted_s(:long_ordinal) %>
 </p>
 
 <p>

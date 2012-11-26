@@ -1,15 +1,25 @@
+<% provide(:title, @team.name) %>
+<h1><%= @team.name %></h1>
 <p id="notice"><%= notice %></p>
-
-<p>
-  <b>Name:</b>
-  <%= @team.name %>
-</p>
 
 <p>
   <b>Product owner:</b>
   <%= @team.product_owner %>
 </p>
 
+<!--Current sprint info here -->
+
+<table class="table table-hover table-condensed">
+  <thead>
+    <tr>
+      <% %> 
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  </tbody>
+</table>
 
 <%= link_to 'Edit', edit_team_path(@team) %> |
 <%= link_to 'Back', teams_path %>
