@@ -19,7 +19,7 @@
     -->
   </div>
   <div class="field">
-    <%= f.select(:team_id, options_for_select(@sprints.map { |s| [s.name, s.id] })) %>
+    <%= f.select(:sprint_id, options_for_select(@sprints.map { |s| [s.name, s.id] })) %>
     <!--
       <%= f.label :sprint_id %><br />
       <%= f.number_field :sprint_id %>

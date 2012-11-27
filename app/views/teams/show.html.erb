@@ -2,22 +2,54 @@
 <h1><%= @team.name %></h1>
 <p id="notice"><%= notice %></p>
 
+
+<!--Current sprint info here -->
+<% if !@current_sprint_result.empty? %>
+<div class = 'well'>
+  <dl>
+    <dt>Current Sprint</dt>
+    <dd><%= @current_sprint.name %> </dd>
+    <dt>Start</dt>
+    <dd><%= @current_sprint.start.to_formatted_s(:long_ordinal) %> </dd>
+    <dt>End</dt>
+    <dd><%= @current_sprint.end.to_formatted_s(:long_ordinal) %> </dd>
+    <dt>Planned Points</dt>
+    <dd><%= @current_sprint_result.points_planned %> </dd>
+    <dt>Planned Person Days</dt>
+    <dd><%= @current_sprint_result.person_days_planned %> </dd>
+  <dl>
+</div>
+<% else %>
+<div class="alert alert-info">
+  <strong>Heads up!</strong> No sprint currently in progress. 
+</div>
+<% end %>
+  
+
 <p>
   <b>Product owner:</b>
   <%= @team.product_owner %>
 </p>
 
-<!--Current sprint info here -->
-
 <table class="table table-hover table-condensed">
   <thead>
     <tr>
-      <% %> 
-      <th></th>
+<% @table[:headers].each do |header| %>
+      <th><%= header.html_safe %></th>
+<% end %>
     </tr>
   </thead>
 
   <tbody>
+<% @table[:rows].each do |row| %>
+    <tr>
+    <% row.each do |metric| %>
+      <td>
+        <%= metric %>
+      </td>
+    <% end %>
+    </tr>
+<% end %>
   </tbody>
 </table>
 

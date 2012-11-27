@@ -4,7 +4,7 @@ class TeamStats < ActiveRecord::Base
   belongs_to :team
 
   def self.dimensions
-    [:all, :last_5, :last_3]
+    [:last_3, :last_5, :all]
   end
 
 end

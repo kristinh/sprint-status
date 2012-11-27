@@ -13,24 +13,86 @@ class TeamsController < ApplicationController
   # GET /teams/1
   # GET /teams/1.json
   def show
-    @team = Team.find(params[:id])
+    the_team = Team.find(params[:id])
+    team_stats = the_team.team_stats
 
     today = Date.today
     # we want to show results of last 5 sprints
-    @results = @team
-                .sprint_results
-                .joins(:sprint)
-                .where(["sprints.end < ? AND points_actual IS NOT ?", today, nil])
-                .order("sprints.end DESC")
-                .limit(5)
-    @current_sprint_result = @team
-                            .sprint_results
-                            .joins(:sprint)
-                            .where(["sprints.start <= ? AND sprints.end >= ?", today, today])
+    results = 
+       the_team
+        .sprint_results
+        .joins(:sprint)
+        .where(["sprints.end < ? AND points_actual IS NOT ?", today, nil])
+        .order("sprints.end DESC")
+        .includes(:sprint)
+        .limit(5)
+
+    # these are the metrics we will show, with row names
+    metrics = {
+      :points_planned                 => ["Pts planned"],
+      :points_actual                  => ["Pts actual"],
+      :person_days_planned            => ["Person days planned"],
+      :person_days_actual             => ["Person days actual"],
+      :points_per_person_day_planned  => ["Pts/Person day planned"],
+      :points_per_person_day_actual   => ["Pts/Person day actual"],
+      :percent_points_completed       => ["% Pts completed"],
+      :percent_person_days_achieved   => ["% Person days achieved"]
+    }
+
+    # all stats as a table, passed to view
+    @table = {:headers => [""], :rows => []}
+
+    # get table headers ie. sprint names from results
+    results.each { |r| @table[:headers] << r.sprint.name }
+    TeamStats.dimensions.each do |dimension|
+      case dimension
+      when :last_3
+        @table[:headers] << "&oslash; < 3" 
+        @table[:headers] << "&sigma; < 3" 
+      when :last_5
+        @table[:headers] << "&oslash; < 5" 
+        @table[:headers] << "&sigma; < 5" 
+      else
+        @table[:headers] << "&oslash;" 
+        @table[:headers] << "&sigma;" 
+      end
+    end
+
+    # fill in the rows with stats
+    # not sure I like this
+    @table[:rows] = 
+      metrics.inject([]) do | memo, (attribute_name, array) |
+        results.each do |result|
+          array << result.send(attribute_name).round(2)
+        end
+        TeamStats.dimensions.each do |dimension|
+          case dimension
+          when :last_3
+            str = '_last_3'
+          when :last_5
+            str = '_last_5'
+          else
+            str = '' 
+          end
+          array << team_stats.send("#{attribute_name}_mean#{str}").round(2)
+          array << team_stats.send("#{attribute_name}_std_dev#{str}").round(2)
+        end
+        memo << array
+      end
+
+    @current_sprint_result = 
+      the_team
+        .sprint_results
+        .joins(:sprint)
+        .where(["sprints.start <= ? AND sprints.end >= ?", today, today])
+        .includes(:sprint)
+        .limit(1)
+
     if !@current_sprint_result.empty? 
       @current_sprint = Sprint.find(@current_sprint_result.sprint_id)
     end
 
+    @team = the_team
     #team = Team.find(params[:id])
     respond_to do |format|
       format.html # show.html.erb
