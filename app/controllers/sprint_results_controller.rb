@@ -27,6 +27,7 @@ class SprintResultsController < ApplicationController
     @sprint_result = SprintResult.new
 
     @teams = Team.all
+    @sprints = Sprint.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -39,6 +40,7 @@ class SprintResultsController < ApplicationController
     @sprint_result = SprintResult.find(params[:id])
 
     @teams = Team.all
+    @sprints = Sprint.all
   end
 
   # POST /sprint_results
