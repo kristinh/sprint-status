@@ -1,4 +1,4 @@
-<div class="center hero-unit">
+<!-- div class="center hero-unit">
   <h1>Sprint Stats</h1>
 
   <h2>
@@ -6,6 +6,48 @@
   </h2>
 
   <%= link_to "Update Results", '#', class: "btn btn-large btn-primary" %>
-</div>
+</div -->
 
-<%= link_to image_tag("logo_250.png", alt: "Searchmetrics"), 'http://www.searchmetrics.com/' %>
+<h2>Current Sprints</h2>
+<table class="table">
+  <tbody>
+<% 
+  last_sprint_id = nil
+  @current_sprint_results.each do |result| 
+%>
+  <% if last_sprint_id != result.sprint_id %>
+    <tr class="info">
+    <td>Sprint <%= result.sprint.name %></td>
+    <td>
+     Starts: <%= result.sprint.start %>
+    Ends: <%= result.sprint.end %>
+    Working Days: <%= result.sprint.work_days %>
+    </td>
+    </tr>
+  <% end %>
+    <tr>
+    <td></td>
+    <td>
+    <%= result.team.name %>
+    Points: <%= result.points_planned %>
+    Person days: <%= result.person_days_planned %>
+    </td>
+    </tr>
+  <% last_sprint_id = result.sprint_id %>
+<% end %>
+  </tbody>
+</table>
+
+<!--
+# current sprints (teams registered for sprint?)
+# what if no current sprints?
+add my team to sprint
+# add sprint
+
+# teams with stats
+# link to view team
+# add team
+
+#link to sprint results?
+-->
+
