@@ -4,24 +4,20 @@
 
 
 <!--Current sprint info here -->
-<% if !@current_sprint_result.empty? %>
-<div class = 'well'>
-  <dl>
-    <dt>Current Sprint</dt>
-    <dd><%= @current_sprint.name %> </dd>
-    <dt>Start</dt>
-    <dd><%= @current_sprint.start.to_formatted_s(:long_ordinal) %> </dd>
-    <dt>End</dt>
-    <dd><%= @current_sprint.end.to_formatted_s(:long_ordinal) %> </dd>
-    <dt>Planned Points</dt>
-    <dd><%= @current_sprint_result.points_planned %> </dd>
-    <dt>Planned Person Days</dt>
-    <dd><%= @current_sprint_result.person_days_planned %> </dd>
-  <dl>
+<% if !@current_sprint_result.nil? %>
+<div class="well">
+  <h4>Current Sprint: <%= @current_sprint_result.sprint.name %></h4>
+  <br/>
+  <p><strong>Starts:</strong> <%= @current_sprint_result.sprint.start.to_formatted_s(:long_ordinal) %> </p>
+  <p><strong>Ends:</strong> <%= @current_sprint_result.sprint.end.to_formatted_s(:long_ordinal) %></p> 
+  <p><strong>Planned Points:</strong> <%= @current_sprint_result.points_planned %> </p>
+  <p><strong>Planned Person Days:</strong> <%= @current_sprint_result.person_days_planned %> </dd>
+  <br/><br/><%= link_to 'Update Sprint', edit_sprint_result_path(@current_sprint_result), :class => "btn"%>
 </div>
 <% else %>
 <div class="alert">
-  <strong>Heads up!</strong> No sprint currently in progress. 
+  <strong>Heads up!</strong> No sprint currently in progress.  
+  <%= link_to 'Start Sprint', new_sprint_result_path, :class => "btn btn-mini" %>
 </div>
 <% end %>
   
@@ -32,6 +28,7 @@
 </p>
 
 <table class="table table-hover table-condensed">
+  <caption><h4>Team Statistics</h4></caption>
   <thead>
     <tr>
 <% @table[:headers].each do |header| %>

@@ -84,17 +84,22 @@ class TeamsController < ApplicationController
         memo << array
       end
 
-    @current_sprint_result = 
+    # will run into problems if team has results for more than one current sprint
+    # consider current sprint helper method
+    sprint_result = 
       the_team
         .sprint_results
         .joins(:sprint)
-        .where(["sprints.start <= ? AND sprints.end >= ?", today, today])
+        .where(["sprints.end >= ? AND sprints.start <= ?", today, today])
         .includes(:sprint)
         .limit(1)
+    
+    # get out of array
+    @current_sprint_result = sprint_result.shift
 
-    if !@current_sprint_result.empty? 
-      @current_sprint = Sprint.find(@current_sprint_result.sprint_id)
-    end
+    #if !@current_sprint_result.empty? 
+    #  @current_sprint = Sprint.find(@current_sprint_result.sprint_id)
+    #end
 
     @team = the_team
     #team = Team.find(params[:id])
