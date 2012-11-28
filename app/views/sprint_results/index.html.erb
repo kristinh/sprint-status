@@ -1,39 +1,52 @@
-<h1>Listing sprint_results</h1>
+<% provide(:title, 'Sprint Results') %>
+<h1>Sprint Results</h1>
 
-<table>
-  <tr>
-    <th>Team</th>
-    <th>Sprint</th>
-    <th>Points planned</th>
-    <th>Points actual</th>
-    <th>Person days planned</th>
-    <th>Person days actual</th>
-    <th>Points/Person day planned</th>
-    <th>Points/Person day actual</th>
-    <th>Points completed</th>
-    <th>Person days achieved</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<table class='table table-hover table-condensed'>
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th colspan='2'>Pts</th>
+      <th colspan='2'>Person Days</th>
+      <th colspan='2'>Pts/Person Day</th>
+      <th>Pts completed</th>
+      <th>Person days achieved</th>
+    </tr>
+    <tr>
+      <th>Team</th>
+      <th>Sprint</th>
+      <th>planned</th>
+      <th>actual</th>
+      <th>planned</th>
+      <th>actual</th>
+      <th>planned</th>
+      <th>actual</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
 
+  <tbody>
 <% @sprint_results.each do |sprint_result| %>
-  <tr>
-    <td><%= sprint_result.team_id %></td>
-    <td><%= sprint_result.sprint_id %></td>
-    <td><%= sprint_result.points_planned %></td>
-    <td><%= sprint_result.points_actual %></td>
-    <td><%= sprint_result.person_days_planned %></td>
-    <td><%= sprint_result.person_days_actual %></td>
-    <td><%= number_with_precision(sprint_result.points_per_person_day_planned, :precision => 2) %></td>
-    <td><%= number_with_precision(sprint_result.points_per_person_day_actual, :precision => 2) %></td>
-    <td><%= number_with_precision(sprint_result.percent_points_completed, :precision => 0)  %> %</td>
-    <td><%= number_with_precision(sprint_result.percent_person_days_achieved, :precision => 0) %> %</td>
-    <td><%= link_to 'Show', sprint_result %></td>
-    <td><%= link_to 'Edit', edit_sprint_result_path(sprint_result) %></td>
-    <td><%= link_to 'Destroy', sprint_result, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+    <tr>
+      <td><%= sprint_result.team.name %></td>
+      <td><%= sprint_result.sprint.name %></td>
+      <td><%= sprint_result.points_planned %></td>
+      <td><%= sprint_result.points_actual %></td>
+      <td><%= sprint_result.person_days_planned %></td>
+      <td><%= sprint_result.person_days_actual %></td>
+      <td><%= number_with_precision(sprint_result.points_per_person_day_planned, :precision => 2) %></td>
+      <td><%= number_with_precision(sprint_result.points_per_person_day_actual, :precision => 2) %></td>
+      <td><%= number_with_precision(sprint_result.percent_points_completed, :precision => 0)  %> %</td>
+      <td><%= number_with_precision(sprint_result.percent_person_days_achieved, :precision => 0) %> %</td>
+        <td class='actions'>
+          <%= link_to(content_tag(:i, '', :class => 'icon-eye-open'), sprint_result) %> |
+          <%= link_to(content_tag(:i, '', :class => 'icon-pencil'), edit_sprint_result_path(sprint_result)) %> |
+          <%= link_to(content_tag(:i, '', :class => 'icon-trash'), sprint_result, method: :delete, data: { confirm: 'Are you sure?' }) %></td>
+    </tr>
 <% end %>
+  </tbody>
 </table>
 
 <br />

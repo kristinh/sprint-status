@@ -2,7 +2,7 @@ class SprintResultsController < ApplicationController
   # GET /sprint_results
   # GET /sprint_results.json
   def index
-    @sprint_results = SprintResult.all
+    @sprint_results = SprintResult.includes(:team, :sprint)
 
     respond_to do |format|
       format.html # index.html.erb
