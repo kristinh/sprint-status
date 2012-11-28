@@ -1,7 +1,6 @@
 <% provide(:title, 'Sprint ' + @sprint.name ) %>
 <h1><%= 'Sprint ' + @sprint.name %> </h1>
-
-<p id="notice"><%= notice %></p>
+<%= render 'layouts/flash_messages' %>
 
 <p>
   <b>Starts: </b>

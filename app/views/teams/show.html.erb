@@ -1,6 +1,6 @@
 <% provide(:title, @team.name) %>
 <h1><%= @team.name %></h1>
-<p id="notice"><%= notice %></p>
+<%= render 'layouts/flash_messages' %>
 
 
 <!--Current sprint info here -->
@@ -20,7 +20,7 @@
   <dl>
 </div>
 <% else %>
-<div class="alert alert-info">
+<div class="alert">
   <strong>Heads up!</strong> No sprint currently in progress. 
 </div>
 <% end %>

@@ -74,8 +74,12 @@ class TeamsController < ApplicationController
           else
             str = '' 
           end
-          array << team_stats.send("#{attribute_name}_mean#{str}").round(2)
-          array << team_stats.send("#{attribute_name}_std_dev#{str}").round(2)
+          mean = team_stats.send("#{attribute_name}_mean#{str}")
+          std_dev = team_stats.send("#{attribute_name}_std_dev#{str}")
+          mean = mean.round(2) if !mean.nil? 
+          std_dev = std_dev.round(2) if !std_dev.nil?
+          array << mean 
+          array << std_dev
         end
         memo << array
       end
