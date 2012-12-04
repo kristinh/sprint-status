@@ -11,37 +11,22 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <fieldset>
+    <label>Team</label>
     <%= f.select(:team_id, options_for_select(@teams.map { |t| [t.name, t.id] })) %>
-    <!--
-      <%= f.label :team_id %><br />
-      <%= f.number_field :team_id %>
-    -->
-  </div>
-  <div class="field">
+    <label>Sprint</label>
     <%= f.select(:sprint_id, options_for_select(@sprints.map { |s| [s.name, s.id] })) %>
-    <!--
-      <%= f.label :sprint_id %><br />
-      <%= f.number_field :sprint_id %>
-    -->
-  </div>
-  <div class="field">
-    <%= f.label :points_planned %><br />
+    <%= f.label :points_planned %> 
     <%= f.number_field :points_planned %>
-  </div>
-  <div class="field">
-    <%= f.label :points_actual %><br />
-    <%= f.number_field :points_actual %>
-  </div>
-  <div class="field">
-    <%= f.label :person_days_planned %><br />
+    <%= f.label :person_days_planned %>
     <%= f.number_field :person_days_planned %>
-  </div>
-  <div class="field">
-    <%= f.label :person_days_actual %><br />
+    <%= f.label :points_actual %>
+    <%= f.number_field :points_actual %>
+    <%= f.label :person_days_actual %>
     <%= f.number_field :person_days_actual %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <br />
+    <br />
+    <%= f.submit :class => 'btn btn-success' %> 
+  </fieldset>
+
 <% end %>

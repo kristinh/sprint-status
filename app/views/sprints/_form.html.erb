@@ -11,23 +11,18 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
+  <fieldset>
+    <%= f.label :name %>
     <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :start %><br />
+    <%= f.label :start %>
     <%= f.date_select :start %>
-  </div>
-  <div class="field">
-    <%= f.label :end %><br />
+    <%= f.label :end %>
     <%= f.date_select :end %>
-  </div>
-  <div class="field">
-    <%= f.label :work_days %><br />
+    <%= f.label :work_days %>
     <%= f.number_field :work_days %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <br />
+    <br />
+    <%= f.submit :class => 'btn btn-success' %> 
+  </fieldset>
+
 <% end %>
