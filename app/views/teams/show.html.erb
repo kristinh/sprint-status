@@ -5,11 +5,11 @@
 
 <!--Current sprint info here -->
 <% if !@current_sprint_result.nil? %>
-<div class="well">
-  <h4>Current Sprint: <%= @current_sprint_result.sprint.name %></h4>
+<div class="alert alert-info alert-block">
+  <h4><strong>Current Sprint: <%= @current_sprint_result.sprint.name %></strong></h4>
   <br/>
-  <p><strong>Starts:</strong> <%= @current_sprint_result.sprint.start.to_formatted_s(:long_ordinal) %> </p>
-  <p><strong>Ends:</strong> <%= @current_sprint_result.sprint.end.to_formatted_s(:long_ordinal) %></p> 
+  <p><%= @current_sprint_result.sprint.start.to_formatted_s(:long_ordinal) %> - 
+    <%= @current_sprint_result.sprint.end.to_formatted_s(:long_ordinal) %></p> 
   <p><strong>Planned Points:</strong> <%= @current_sprint_result.points_planned %> </p>
   <p><strong>Planned Person Days:</strong> <%= @current_sprint_result.person_days_planned %> </dd>
   <br/><br/><%= link_to 'Update Sprint', edit_sprint_result_path(@current_sprint_result), :class => "btn"%>
@@ -50,5 +50,5 @@
   </tbody>
 </table>
 
-<%= link_to 'Edit', edit_team_path(@team) %> |
-<%= link_to 'Back', teams_path %>
+<%= link_to(content_tag(:i,'', :class => 'icon-pencil') + ' Edit team', edit_team_path(@team), :class => 'btn') %>
+<%= link_to(content_tag(:i,'', :class => 'icon-th-list') + ' View all teams', teams_path, :class => 'btn') %>

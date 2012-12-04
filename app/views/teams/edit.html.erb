@@ -1,6 +1,7 @@
-<h1>Editing team</h1>
+<% provide(:title, 'Edit ' + @team.name) %>
+<h1>Editing <%= @team.name %></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @team %> |
-<%= link_to 'Back', teams_path %>
+<%= link_to(content_tag(:i,'', :class => 'icon-eye-open') + ' Cancel & view team', @team, :class => 'btn') %>
+<%= link_to(content_tag(:i,'', :class => 'icon-th-list') + ' Cancel & view all teams', teams_path, :class => 'btn') %>

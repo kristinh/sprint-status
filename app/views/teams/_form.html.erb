@@ -11,15 +11,14 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
+  <fieldset>
+    <%= f.label :name %>
     <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :product_owner %><br />
+    <%= f.label :product_owner %>
     <%= f.text_field :product_owner %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <br />
+    <br />
+    <%= f.submit :class => 'btn btn-success' %> 
+  </fieldset>
+
 <% end %>
