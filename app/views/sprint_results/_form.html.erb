@@ -1,3 +1,11 @@
+<% if (@teams.nil? || @sprints.nil?) %>
+<div class="alert">
+  <strong>Heads up!</strong> You need to create teams or sprints before you can create sprint results.
+  <%= link_to 'Add a team', new_team_path, :class => "btn btn-mini" %>
+  <%= link_to 'Add a sprint', new_sprint_path, :class => "btn btn-mini" %>
+</div>
+<% else %>
+
 <%= form_for(@sprint_result) do |f| %>
   <% if @sprint_result.errors.any? %>
     <div id="error_explanation">
@@ -29,4 +37,5 @@
     <%= f.submit :class => 'btn btn-success' %> 
   </fieldset>
 
+<% end %>
 <% end %>
