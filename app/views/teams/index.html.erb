@@ -20,10 +20,43 @@
       <td><%= team.name %></td>
       <td><%= team.product_owner %></td>
       <% if (!team.team_stats.nil?) %>
-        <td><%= number_with_precision(team.team_stats.points_actual_mean_last_5, :precision => 2) %></td>
-        <td><%= number_with_precision(team.team_stats.percent_points_completed_mean_last_5, :precision => 0) %></td>
-        <td><%= number_with_precision(team.team_stats.points_per_person_day_actual_mean_last_5, :precision => 2)%></td>
-        <td><%= number_with_precision(team.team_stats.percent_person_days_achieved_mean_last_5, :precision => 0) %></td>
+        <td>
+          <% if (!team.team_stats.points_actual_mean_last_5.nil?) %>
+          <%= number_with_precision(team.team_stats.points_actual_mean_last_5, :precision => 2) %>
+          <small class='muted'>
+            &plusmn;
+            <%= number_with_precision(team.team_stats.points_actual_std_dev_last_5, :precision => 2) %>
+          </small>
+          <% end %>
+        </td>
+        <td>
+          <% if (!team.team_stats.percent_points_completed_mean_last_5.nil?) %>
+          <%= number_with_precision(team.team_stats.percent_points_completed_mean_last_5, :precision => 0) %>
+          <small class='muted'>
+            &plusmn;
+            <%= number_with_precision(team.team_stats.percent_points_completed_std_dev_last_5, :precision => 0) %>
+          </small>
+          <% end %>
+        </td>
+          
+        <td>
+          <% if (!team.team_stats.points_per_person_day_actual_mean_last_5.nil?) %>
+          <%= number_with_precision(team.team_stats.points_per_person_day_actual_mean_last_5, :precision => 2)%>
+          <small class='muted'>
+            &plusmn;
+            <%= number_with_precision(team.team_stats.points_per_person_day_actual_std_dev_last_5, :precision => 2) %>
+          </small>
+          <% end %>
+        </td>
+        <td>
+          <% if (!team.team_stats.percent_person_days_achieved_mean_last_5.nil?) %>
+          <%= number_with_precision(team.team_stats.percent_person_days_achieved_mean_last_5, :precision => 0) %>
+          <small class='muted'>
+            &plusmn;
+            <%= number_with_precision(team.team_stats.percent_person_days_achieved_std_dev_last_5, :precision => 0) %>
+          </small>
+          <% end %>
+        </td>
       <% else %>
         <td></td>
         <td></td>
@@ -38,7 +71,9 @@
 <% end %>
   </tbody>
 </table>
+<small class='muted'>* Statistics based on last 5 sprints completed.</small>
 
+<br />
 <br />
 
 <%= link_to 'New Team', new_team_path %>
