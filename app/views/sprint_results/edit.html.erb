@@ -1,6 +1,7 @@
-<h1>Editing sprint_result</h1>
+<% provide(:title, 'Edit sprint result') %>
+<h1>Edit result for <%= @sprint_result.team.name %>, Sprint <%= @sprint_result.sprint.name %></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @sprint_result %> |
-<%= link_to 'Back', sprint_results_path %>
+<%= link_to(content_tag(:i,'', :class => 'icon-eye-open') + ' Cancel & view result', @sprint_result, :class => 'btn') %>
+<%= link_to(content_tag(:i,'', :class => 'icon-th-list') + ' Cancel & view all results', sprint_results_path, :class => 'btn') %>

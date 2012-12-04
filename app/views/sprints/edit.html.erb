@@ -1,6 +1,7 @@
-<h1>Editing sprint</h1>
+<% provide(:title, 'Edit ' + @sprint.name) %>
+<h1>Editing sprint <%= @sprint.name %></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @sprint %> |
-<%= link_to 'Back', sprints_path %>
+<%= link_to(content_tag(:i,'', :class => 'icon-eye-open') + ' Cancel & view sprint', @sprint, :class => 'btn') %>
+<%= link_to(content_tag(:i,'', :class => 'icon-th-list') + ' Cancel & view all sprints', sprints_path, :class => 'btn') %>
