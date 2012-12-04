@@ -1,5 +1,6 @@
-<h1>New sprint_result</h1>
+<% provide(:title, 'Create a new sprint result') %>
+<h1>Create a new sprint result</h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Back', sprint_results_path %>
+<%= link_to(content_tag(:i,'', :class => 'icon-th-list') + ' Cancel & view all sprint results', sprint_result_path, :class => 'btn') %>
