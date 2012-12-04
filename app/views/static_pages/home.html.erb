@@ -1,15 +1,14 @@
-<!-- div class="center hero-unit">
-  <h1>Sprint Stats</h1>
-
-  <h2>
-    Record and view sprint statistics
-  </h2>
-
-  <%= link_to "Update Results", '#', class: "btn btn-large btn-primary" %>
-</div -->
-
 <h2>Current Sprints</h2>
 <table class="table">
+  <thead>
+    <tr>
+      <th>Sprints</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr> 
+  </thead>
   <tbody>
 <% 
   last_sprint_id = nil
@@ -17,26 +16,86 @@
 %>
   <% if last_sprint_id != result.sprint_id %>
     <tr class="info">
-    <td>Sprint <%= result.sprint.name %></td>
-    <td>
-     Starts: <%= result.sprint.start %>
-    Ends: <%= result.sprint.end %>
-    Working Days: <%= result.sprint.work_days %>
-    </td>
+      <td>Sprint <%= result.sprint.name %> 
+      <td> 
+          <%= result.sprint.start.to_formatted_s(:long_ordinal) %> -
+          <%= result.sprint.end.to_formatted_s(:long_ordinal) %> 
+      </td> 
+      <td><%= result.sprint.work_days %> work days</td>
+      <td></td>
+      <td class='actions'>
+        <%= link_to(content_tag(:i, '', :class => 'icon-eye-open'), result.sprint) %> |
+        <%= link_to(content_tag(:i, '', :class => 'icon-pencil'), edit_sprint_path(result.sprint)) %>
+      </td>
     </tr>
   <% end %>
     <tr>
-    <td></td>
-    <td>
-    <%= result.team.name %>
-    Points: <%= result.points_planned %>
-    Person days: <%= result.person_days_planned %>
-    </td>
+      <td></td>
+      <td><%= result.team.name %>
+      <td>Points: <%= result.points_planned %></td>
+      <td>Person days: <%= result.person_days_planned %></td>
+      <td class='actions'>
+        <%= link_to(content_tag(:i, '', :class => 'icon-eye-open'), result) %> |
+        <%= link_to(content_tag(:i, '', :class => 'icon-pencil'), edit_sprint_result_path(result)) %>
+      </td>
     </tr>
   <% last_sprint_id = result.sprint_id %>
 <% end %>
+    <tr>
+      <td></td>
+      <td colspan=4><%= link_to 'Add a team to this sprint', new_sprint_result_path, :class => "btn btn-mini" %></td>
+    </tr>
   </tbody>
 </table>
+
+<h2>Teams</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Product owner</th>
+      <th>&oslash; pts completed</th>
+      <th>% planned pts completed</th>
+      <th>&oslash; pts / person day</th>
+      <th>% person days</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+<% @teams.each do |team| %>
+    <tr>
+      <td><%= team.name %></td>
+      <td><%= team.product_owner %></td>
+      <% if (!team.team_stats.nil?) %>
+        <td><%= number_with_precision(team.team_stats.points_actual_mean_last_5, :precision => 2) %></td>
+        <td><%= number_with_precision(team.team_stats.percent_points_completed_mean_last_5, :precision => 0) %></td>
+        <td><%= number_with_precision(team.team_stats.points_per_person_day_actual_mean_last_5, :precision => 2)%></td>
+        <td><%= number_with_precision(team.team_stats.percent_person_days_achieved_mean_last_5, :precision => 0) %></td>
+      <% else %>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      <% end %>
+      <td class='actions'>
+        <%= link_to(content_tag(:i, '', :class => 'icon-eye-open'), team) %> |
+        <%= link_to(content_tag(:i, '', :class => 'icon-pencil'), edit_team_path(team)) %>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+
+<div class='alert alert-info'>
+  <h3>What would you like to do?</h3>
+  <div class='btn-group'>
+    <%= link_to 'Add a new team', new_team_path, :class => "btn" %>
+    <%= link_to 'Add a new sprint', new_sprint_path, :class => "btn" %>
+    <%= link_to 'Add a team to a sprint', new_sprint_result_path, :class => "btn" %>
+  </div>
+</div>
+
 
 <!--
 # current sprints (teams registered for sprint?)
