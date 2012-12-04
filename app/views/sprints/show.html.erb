@@ -17,6 +17,5 @@
   <%= @sprint.work_days %>
 </p>
 
-
-<%= link_to 'Edit', edit_sprint_path(@sprint) %> |
-<%= link_to 'Back', sprints_path %>
+<%= link_to(content_tag(:i,'', :class => 'icon-pencil') + ' Edit sprint', edit_sprint_path(@sprint), :class => 'btn') %>
+<%= link_to(content_tag(:i,'', :class => 'icon-th-list') + ' View all sprints', sprints_path, :class => 'btn') %>

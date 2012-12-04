@@ -1,14 +1,15 @@
-<!--p id="notice"><%= notice %></p -->
+<% provide(:title, 'Result for ' + @sprint_result.team.name + ', Sprint ' + @sprint_result.sprint.name) %>
+<h1>Result for <%= @sprint_result.team.name %>, Sprint <%= @sprint_result.sprint.name %></h1>
 <%= render 'layouts/flash_messages' %>
 
 <p>
   <b>Team:</b>
-  <%= @sprint_result.team_id %>
+  <%= @sprint_result.team.name %>
 </p>
 
 <p>
   <b>Sprint:</b>
-  <%= @sprint_result.sprint_id %>
+  <%= @sprint_result.sprint.name %>
 </p>
 
 <p>
@@ -52,5 +53,5 @@
 </p>
 
 
-<%= link_to 'Edit', edit_sprint_result_path(@sprint_result) %> |
-<%= link_to 'Back', sprint_results_path %>
+<%= link_to(content_tag(:i,'', :class => 'icon-pencil') + ' Edit result', edit_sprint_result_path(@sprint_result), :class => 'btn') %>
+<%= link_to(content_tag(:i,'', :class => 'icon-th-list') + ' View all results', sprint_results_path, :class => 'btn') %>
