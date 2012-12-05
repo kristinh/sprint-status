@@ -1,4 +1,4 @@
-<% if (@teams.nil? || @sprints.nil?) %>
+<% if (@teams.empty? || @sprints.empty?) %>
 <div class="alert">
   <strong>Heads up!</strong> You need to create teams or sprints before you can create sprint results.
   <%= link_to 'Add a team', new_team_path, :class => "btn btn-mini" %>
